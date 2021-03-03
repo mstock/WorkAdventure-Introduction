@@ -1,0 +1,30 @@
+.multi-column {
+    display: flex;
+}
+
+.slides section h1, .slides section h2, .slides section h3 {
+    text-transform: none;
+}
+
+.logo {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 100px;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.two-column {
+    display: flex;
+}
+
+.right-image {
+    flex: 1 0 auto;
+}
+
+.right-image img {
+    width: 100%;
+}
