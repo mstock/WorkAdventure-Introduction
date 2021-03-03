@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; block-all-mixed-content">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css">
+        <link rel="stylesheet" href="css/slides.css">
+        <title>WorkAdventure Introduction</title>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h1>Introduction to WorkAdventure </h1>
+                </section>
+
+                <section>
+                    <h2>WorkAdventure</h2>
+                    <ul>
+                        <li><a href="https://workadventu.re/">https://workadventu.re/</a>, <a href="https://github.com/thecodingmachine/workadventure">https://github.com/thecodingmachine/workadventure</a></li>
+                        <li><q>Web-based collaborative workspace [...] in the form of a 16-bit video game.</q></li>
+                        <li class="fragment">GNU AGPL Version 3, with the Commons Clause</li>
+                        <li class="fragment">Integrated video and text chat, audio playback, Jitsi rooms, websites in iframes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Tilesets</h2>
+                    <ul>
+                        <li>PNGs that contain 32x32 px tiles</li>
+                        <li class="fragment">Maps are drawn using these tiles</li>
+                        <li class="fragment">Map elements may span more than one tile</li>
+                        <li class="fragment">
+                            Some sample tilesets:
+                            <ul>
+                                <li><a href="https://git.cccv.de/rc3/world-tiles">https://git.cccv.de/rc3/world-tiles</a> - rC3 world tiles</li>
+                                <li><a href="https://github.com/mstock/rC3-OSM-Tileset/">https://github.com/mstock/rC3-OSM-Tileset/</a> - OSM-Carto styled tiles</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Tiled</h2>
+                        <ul>
+                            <li><a href="https://www.mapeditor.org/">https://www.mapeditor.org/</a></li>
+                            <li>Used to build maps</li>
+                            <li class="fragment">Supports more features than WorkAdventure</li>
+                            <li class="fragment">
+                                Maps must be...
+                                <ul>
+                                    <li>... saved as JSON for use with WorkAdventure</li>
+                                    <li>... orthogonal and tiles size should be 32x32</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Add Tileset</h3>
+                        <ul>
+                            <li>Tilesets must be embedded</li>
+                        </ul>
+                        <p>
+                            <img class="middle" src="images/new-tileset.png">
+                            <img class="middle fragment" src="images/new-tileset-dialogue.png">
+                        <p>
+                    </section>
+                    <section>
+                        <h3>Layers</h3>
+                        <span class="two-column">
+                            <ul>
+                                <li>Group different kinds of map elements</li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Also used to add interactivity/functionality via layer properties
+                                    <ul>
+                                        <li>Put a tile where something should happen</li>
+                                    </ul>
+                                </li>
+                                <li class="fragment" data-fragment-index="2">Only tile layers (and one special object layer) supported by WorkAdventure</li>
+                                <li class="fragment" data-fragment-index="3">Layers can be highlighted</li>
+                            </ul>
+                            <div class="right-image">
+                                <img class="fragment" data-fragment-index="3" src="images/highlight-layer.png">
+                            </div>
+                        </span>
+                    </section>
+                    <section>
+                        <h3>Required Layers</h3>
+                        <dl>
+                            <dt><a href="https://workadventu.re/map-building/wa-maps#workadventure-maps-rules"><code>floorLayer</code></a></dt>
+                            <dd>Layer where avatar resides, the special object layer</dd>
+                            <dt class="fragment" data-fragment-index="1"><a href="https://workadventu.re/map-building/entry-exit#defining-a-default-entry-point"><code>start</code></a></dt>
+                            <dd class="fragment" data-fragment-index="1">Non-empty layer where avatar gets put by default when entering map</dd>
+                        </dl>
+                    </section>
+                    <section>
+                        <h3>Special Layers I</h3>
+                        <dl>
+                            <dt><a href="https://workadventu.re/map-building/entry-exit#defining-exits">Exits</a></dt>
+                            <dd>
+                                <ul>
+                                    <li><code>exitUrl</code> string property</li>
+                                    <li>Start layer at target selectable using <code>#&lt;layer name&gt;</code> suffix/anchor</li>
+                                </ul>
+                            </dd>
+                            <dt class="fragment" data-fragment-index="1"><a href="https://workadventu.re/map-building/entry-exit#defining-several-entry-points">Entry points</a></dt>
+                            <dd class="fragment" data-fragment-index="1">
+                                <ul>
+                                    <li>Boolean <code>startLayer</code> property</li>
+                                    <li>Layer name can be used as target <code>&lt;layer name&gt;</code> for exits</li>
+                                    <li>Use different tiles for start and exit</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </section>
+                    <section>
+                        <h3>Special Layers II</h3>
+                        <dl>
+                            <dt><a href="https://workadventu.re/map-building/special-zones#opening-a-website-when-walking-on-the-map">Websites</a></dt>
+                            <dd>
+                                <ul>
+                                    <li><code>openWebsite</code> string property</li>
+                                    <li><code>openWebsiteTrigger</code> string property with <code>onaction</code> requires key press</li>
+                                    <li>Website must allow being displayed in frame</li>
+                                </ul>
+                            </dd>
+                            <dt class="fragment" data-fragment-index="1"><a href="https://workadventu.re/map-building/special-zones#opening-a-jitsi-meet-when-walking-on-the-map">Jitsi rooms</a></dt>
+                            <dd class="fragment" data-fragment-index="1">
+                                <ul>
+                                    <li><code>jitsiRoom</code> string property</li>
+                                    <li><code>jitsiTrigger</code> string property with <code>onaction</code> requires key press</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </section>
+                    <section>
+                        <h3>Special Layers III</h3>
+                        <dl>
+                            <dt><a href="https://workadventu.re/map-building/special-zones#making-a-silent-zone">Silent areas</a></dt>
+                            <dd>
+                                <ul>
+                                    <li>Boolean <code>silent</code> property</li>
+                                </ul>
+                            </dd>
+                            <dt class="fragment" data-fragment-index="1"><a href="https://workadventu.re/map-building/special-zones#playing-sounds">Sounds or background music</a></dt>
+                            <dd class="fragment" data-fragment-index="1">
+                                <ul>
+                                    <li><code>playAudio</code> and <code>playAudioLoop</code> string properties with URL</li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </section>
+                    <section>
+                        <h3>Collisions</h3>
+                        <ul>
+                            <li>Boolean <code>collides</code> property on single tiles</li>
+                        </ul>
+                        <img class="middle" src="images/edit-tileset.png">
+                        <img class="middle fragment" src="images/collides-tile.png">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Krita I</h2>
+                        <ul>
+                            <li><a href="https://krita.org/">https://krita.org/</a></li>
+                            <li>Raster graphics editor suitable to create tilesets</li>
+                            <li class="fragment">
+                                Special brushes for pixel art:
+                                <img class="centered-block" src="images/krita-brushes.png">
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Krita II</h3>
+                        <ul>
+                            <li>
+                                Use 32x32 px grid (or a smaller power of 2, but with larger subdivision):
+                                <img class="centered-block" src="images/krita-grid.png">
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Krita III</h3>
+                        <ul>
+                            <li>
+                                Use file layers to assemble larger tilesets from smaller ones:
+                                <img class="centered-block" src="images/krita-file-layer.png">
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>General hints</h2>
+                        <ul>
+                            <li>Think of how the map should look like before starting in Tiled, maybe prototype in a vector drawing program</li>
+                            <li class="fragment">Think about a convention for layer names, especially entry points and exits</li>
+                            <li class="fragment">Use utility tiles on special layers</li>
+                            <li class="fragment">Mark areas used as entry and their surroundings as silent</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Further reading</h2>
+                    <ul>
+                        <li><a href="https://workadventu.re/map-building">https://workadventu.re/map-building</a> - official tutorial, contains lots of useful information</li>
+                        <li><a href="https://howto.rc3.world/maps.en.html">https://howto.rc3.world/maps.en.html</a> - <a href="https://events.ccc.de/2020/09/04/rc3-remote-chaos-experience/">rC3</a> tutorial</li>
+                        <li><a href="https://codimd.c3d2.de/WA-Zone-Beginners-02">https://codimd.c3d2.de/WA-Zone-Beginners-02</a> - WA Beginners Workshop</li>
+                        <li><a href="https://git.imaginaerraum.de/latchup/rc3/src/branch/master/rc3_notes.md">https://git.imaginaerraum.de/latchup/rc3/src/branch/master/rc3_notes.md</a> - notes from a workshop by <a href="https://git.imaginaerraum.de/latchup">latchup</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <script src="node_modules/reveal.js/dist/reveal.js"></script>
+        <script src="javascript/slides.js"></script>
+    </body>
+</html>
